@@ -11,10 +11,6 @@
 > $ conda create -n ENV_NAME
 > $ pip3 install -r requirements.txt
 > $ pip3 install -r dev-requirements.txt
-<<<<<<< HEAD
 > $ uvicorn main:app --reload
-=======
-> $ uvicorn main:app --reload     
->>>>>>> 6c4b3e39405fa81fd64322c4db30542f2e3d8a23
 ```
 
