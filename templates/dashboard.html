@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="ui labeled input">
+  <div class="ui label">
+    http://
+  </div>
+  <input type="text" placeholder="mysite.com">
+</div>
+<button class="ui button primary">
+  Submit
+</button>
+<table class="ui celled table">
+    <thead>
+      <tr><th>Question</th>
+      <th>Answer</th>
+    </tr></thead>
+    <tbody>
+      {% for question in questions %}
+      <tr>
+        <td>{{question['question']}}</td>
+        <td>{{question['answer']}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

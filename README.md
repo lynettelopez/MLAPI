@@ -9,6 +9,7 @@
 ### Startup
 ```bash
 > $ conda create -n ENV_NAME
+> $ conda activate ENV_NAME
 > $ pip3 install -r requirements.txt
 > $ pip3 install -r dev-requirements.txt
 > $ uvicorn main:app --reload
