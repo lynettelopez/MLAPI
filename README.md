@@ -1,4 +1,4 @@
-# MLAPI 🚀🚀
+# EchoRecall 🚀🚀
 ### Machine Learning API using FastAPI and 🤗 cutting-edge transformer model for question generation
 
 - Capstone project for https://ai.science/
