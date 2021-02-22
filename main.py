@@ -17,6 +17,10 @@ class Article(BaseModel):
 class QuestionDelete(BaseModel):
     id: int
 
+class QuestionUpdate(BaseModel):
+    id: int
+    question: str
+
 app = FastAPI()
 
 def get_db():
@@ -57,6 +61,9 @@ async def delete_question(question: QuestionDelete,  db: Session = Depends(get_d
     db.commit()
     return {"id": question.id}
 
+@app.update("/article")
+async def update_question(question: QuestionUpdate,  db: Session = Depends(get_db)):
+    pass
 
 
 
