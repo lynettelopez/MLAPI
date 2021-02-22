@@ -6,6 +6,9 @@
 ## Goal
 >To automate the process of generating test questions and flashcards to help teachers quickly create tests and students to generate flashcards. Our aim to to Accelerate learning through active recall and to use NLP to ask great questions.
 
+## Active Recall and spaced repetition
+> "As the name suggests, spaced repetition involves spacing your revision and reviewing topics, ideally by active recall, at specific intervals over a period of time. It can be explained by the 'forgetting curve' – an idea that has been around in the psychology literature for over one hundred years."
+
 ## Current Model
 > Adapted from https://github.com/patil-suraj/question_generation#results
 
