@@ -1,28 +1,105 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<!--START Javascript-->
+<script>
+  function deleteRow(btn) {
+      var row = btn.parentNode.parentNode;
+      var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+      xmlhttp.open("DELETE", "/article");
+      xmlhttp.setRequestHeader("Content-Type", "application/json");
+      xmlhttp.send(JSON.stringify({id: parseInt(row.firstChild.nextSibling.innerHTML)}));
+      row.parentNode.removeChild(row);
 
-<div class="ui labeled input">
-  <div class="ui label">
-    http://
-  </div>
-  <input type="text" placeholder="mysite.com">
-</div>
-<button class="ui button primary">
-  Submit
-</button>
+  }
+  $(document).ready(function() {
+    $("#add_content").click(function() {
+      $('.ui.modal').modal('show');
+    });
+
+    $("#save").click(function() {
+
+        var textareaContent = $("#content").val();
+        console.log(JSON.stringify(textareaContent))
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("POST", "/article");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({content: textareaContent}));
+
+      $('.ui.modal').modal('hide');
+    });
+  });
+  </script>
+<!--END Javascript-->
+
+<button id="add_content" class="ui button secondary">Add Content</button>
+
+<!--START UI Table to hold questions-->
 <table class="ui celled table">
     <thead>
-      <tr><th>Question</th>
+      <tr>
+      <th>ID</th>
+      <th>Question</th>
       <th>Answer</th>
     </tr></thead>
     <tbody>
       {% for question in questions %}
       <tr>
-        <td>{{question['question']}}</td>
+        <td id="id">{{question['id']}}</td>
+        <td>{{question['question']}} <button id="edit_content">Edit</button></td>
         <td>{{question['answer']}}</td>
+        <td><input type="button" value="Delete" onclick="deleteRow(this)"/></td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+<!--END UI Table to hold questions-->
+
+
+<!-- START UI MODAL to add content-->
+  <div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Add content
+    </div>
+    <div class="contentArea">
+        <div class="ui form">
+            <div class="field">
+              <label>content</label>
+              <textarea id="content"></textarea>
+            </div>
+          </div>
+    </div>
+    <div class="actions">
+      <div id="save" class="ui positive right labeled icon button">
+        Add Content
+        <i class="plus icon"></i>
+      </div>
+    </div>
+  </div>
+  <!-- END UI MODAL to add content-->
+
+  <!-- START UI MODAL to edit content-->
+  <div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Edit content
+    </div>
+    <div class="contentArea">
+        <div class="ui form">
+            <div class="field">
+              <label>content</label>
+              <textarea id="content"></textarea>
+            </div>
+          </div>
+    </div>
+    <div class="actions">
+      <div id="edit" class="ui positive right labeled icon button">
+        Edit Content
+        <i class="plus icon"></i>
+      </div>
+    </div>
+  </div>
+  <!-- END UI MODAL to edit content-->
 {% endblock %}

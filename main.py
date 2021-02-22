@@ -14,6 +14,9 @@ templates = Jinja2Templates(directory="templates")
 class Article(BaseModel):
     content: str
 
+class QuestionDelete(BaseModel):
+    id: int
+
 app = FastAPI()
 
 def get_db():
@@ -33,11 +36,11 @@ def read_main(request: Request, db: Session = Depends(get_db)):
     })
 
 @app.post("/article")
-async def analyze_article(article : Article,  background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+async def analyze_article(article : Article,  db: Session = Depends(get_db)):
     nlp.clear()
     doc = nlp.consume_text(article.content)
     nlp.print()
-    
+
     for qa_pair in nlp.qa_pairs:
         question_answers = QuestionAnswerPair()
         question_answers.message = article.content
@@ -48,6 +51,11 @@ async def analyze_article(article : Article,  background_tasks: BackgroundTasks,
 
     return {"message": article.content, "questions": nlp.qa_pairs}
 
+@app.delete("/article")
+async def delete_question(question: QuestionDelete,  db: Session = Depends(get_db)):
+    db.execute(f"DELETE FROM questions WHERE id ={question.id}")
+    db.commit()
+    return {"id": question.id}
 
 
 
