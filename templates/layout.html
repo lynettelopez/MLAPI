@@ -7,12 +7,18 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
     <title>Test Generator</title>
 </head>
 <body>
-    <div class="ui container">
-        <h2>Recall</h2>
+    <div class="ui inverted segment">
+        <div class="ui inverted secondary pointing menu">
+          <a class="active item ">
+            EdgeRecall
+          </a>
+        </div>
+      </div>
+    <div class="ui massive container">
         {% block content %}
         {% endblock %}
     </div>

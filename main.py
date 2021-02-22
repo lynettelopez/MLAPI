@@ -3,25 +3,24 @@ import models
 from fastapi import FastAPI, Request, Depends, BackgroundTasks
 from ml import nlp
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from database import SessionLocal, engine
 from models import QuestionAnswerPair
 from sqlalchemy.orm import Session
 
-models.Base.metadata.create_all(bind=engine)
-templates = Jinja2Templates(directory="templates")
-
 class Article(BaseModel):
     content: str
 
+
 class QuestionDelete(BaseModel):
     id: int
+
 
 class QuestionUpdate(BaseModel):
     id: int
     question: str
 
-app = FastAPI()
 
 def get_db():
     try:
@@ -29,6 +28,16 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+app = FastAPI()
+
+
+models.Base.metadata.create_all(bind=engine)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
+
 
 @app.get("/")
 def read_main(request: Request, db: Session = Depends(get_db)):
@@ -61,9 +70,6 @@ async def delete_question(question: QuestionDelete,  db: Session = Depends(get_d
     db.commit()
     return {"id": question.id}
 
-@app.update("/article")
-async def update_question(question: QuestionUpdate,  db: Session = Depends(get_db)):
-    pass
 
 
 

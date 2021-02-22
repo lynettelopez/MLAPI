@@ -3,3 +3,4 @@ transformers
 pipeline
 uvicorn
 nltk
+aiofiles
